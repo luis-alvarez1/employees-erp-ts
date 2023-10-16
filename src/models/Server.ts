@@ -2,12 +2,14 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import { AppDataSource } from '../db/data-source';
 import { EmployeesRoutes } from '../routes/Employee.routes';
+import { ContactInfoRoutes } from '../routes/ContactInfo.routes';
 
 export class Server {
     private app: Application;
     private port: string;
     private apiPaths = {
         employees: '/api/employees',
+        contactInfo: '/api/contactInfo',
     };
 
     constructor() {
@@ -21,6 +23,7 @@ export class Server {
 
     routes = () => {
         this.app.use(this.apiPaths.employees, EmployeesRoutes);
+        this.app.use(this.apiPaths.contactInfo, ContactInfoRoutes);
     };
 
     middlewares = () => {

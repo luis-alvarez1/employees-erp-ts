@@ -6,10 +6,10 @@ export class ContactInfo extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: true })
     phone: string;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
     @OneToOne(() => Employee, (employee) => employee.id, { onDelete: 'CASCADE' })

@@ -24,19 +24,19 @@ router.post(
     CreateEmployee,
 );
 router.put(
-    // TODO: CONTINUE FROM HEREEE
     '/:id',
     [
         param('id', 'id required').notEmpty(),
         body('name', 'Name is required').notEmpty().isString(),
         body('manager', 'Manager not valid').optional().isInt(),
         body('contactInfo', 'Contact Info not valid').optional().isInt(),
-        body('meetings', 'Meetings not valid').optional().isArray(),
-        body('tasks', 'Tasks not valid').optional().isArray(),
+        // TODO: Add validations on controller for this fields
+        // body('meetings', 'Meetings not valid').optional().isArray(),
+        // body('tasks', 'Tasks not valid').optional().isArray(),
         validateFields,
     ],
     UpdateEmployee,
 );
-router.delete('/:id', DeleteEmployee);
+router.delete('/:id', [param('id', 'id required').notEmpty(), validateFields], DeleteEmployee);
 
 export const EmployeesRoutes = router;

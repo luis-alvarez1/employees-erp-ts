@@ -39,18 +39,16 @@ export const UpdateEmployee = async (req: Request, res: Response) => {
 export const DeleteEmployee = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const userExists = await Employee.findOneBy({ id: Number(id) });
+        const employee = await Employee.findOneBy({ id: Number(id) });
 
-        if (userExists) {
-            await Employee.delete({ id: userExists.id });
+        if (employee) {
+            await Employee.delete({ id: employee.id });
         } else {
-            res.status(404).json({ ok: false, error: 'Employee doesnt exists' });
+            res.status(404).json({ ok: false, error: "Employee doesn't exists" });
         }
 
-        res.json(userExists);
+        res.json(employee);
     } catch (error) {
         res.status(500).json(error);
     }
 };
-
-// TODO: Asignar meetings, contact y tasks a employees
