@@ -4,7 +4,7 @@ import generators from '../generators';
 
 export const GetAllEmployees = async (req: Request, res: Response) => {
     const employees = await Employee.find({
-        relations: ['contactInfo', 'manager'], // TODO: Add tasks and meetings
+        relations: ['tasks', 'contactInfo', 'manager'], // TODO: Add tasks and meetings
     });
 
     res.json(employees);

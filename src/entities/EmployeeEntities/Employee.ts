@@ -10,7 +10,7 @@ import {
     ManyToOne,
 } from 'typeorm';
 import { Meeting } from '../MeetingEntities/Meeting';
-import { Tasks } from '../TasksEntites/Tasks';
+import { Task } from '../TasksEntites/Tasks';
 import { ContactInfo } from '../ContactInfoEntities/ContaInfo';
 
 @Entity()
@@ -37,7 +37,6 @@ export class Employee extends BaseEntity {
     @JoinColumn()
     contactInfo: ContactInfo;
 
-    @OneToMany(() => Tasks, (tasks) => tasks.id, { onDelete: 'SET NULL' })
-    @JoinColumn()
-    tasks: Array<Tasks>;
+    @OneToMany(() => Task, (tasks) => tasks.id, { onDelete: 'SET NULL' })
+    tasks: Array<Task>;
 }

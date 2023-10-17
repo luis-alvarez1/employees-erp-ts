@@ -3,6 +3,7 @@ import cors from 'cors';
 import { AppDataSource } from '../db/data-source';
 import { EmployeesRoutes } from '../routes/Employee.routes';
 import { ContactInfoRoutes } from '../routes/ContactInfo.routes';
+import { TaskRoutes } from '../routes/Task.routes';
 
 export class Server {
     private app: Application;
@@ -10,6 +11,7 @@ export class Server {
     private apiPaths = {
         employees: '/api/employees',
         contactInfo: '/api/contactInfo',
+        tasks: '/api/tasks',
     };
 
     constructor() {
@@ -24,6 +26,7 @@ export class Server {
     routes = () => {
         this.app.use(this.apiPaths.employees, EmployeesRoutes);
         this.app.use(this.apiPaths.contactInfo, ContactInfoRoutes);
+        this.app.use(this.apiPaths.tasks, TaskRoutes);
     };
 
     middlewares = () => {
