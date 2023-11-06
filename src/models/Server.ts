@@ -4,6 +4,7 @@ import { AppDataSource } from '../db/data-source';
 import { EmployeesRoutes } from '../routes/Employee.routes';
 import { ContactInfoRoutes } from '../routes/ContactInfo.routes';
 import { TaskRoutes } from '../routes/Task.routes';
+import { MeetingsRoutes } from '../routes/Meetings.routes';
 
 export class Server {
     private app: Application;
@@ -12,6 +13,7 @@ export class Server {
         employees: '/api/employees',
         contactInfo: '/api/contactInfo',
         tasks: '/api/tasks',
+        meetings: '/api/meetings',
     };
 
     constructor() {
@@ -27,6 +29,7 @@ export class Server {
         this.app.use(this.apiPaths.employees, EmployeesRoutes);
         this.app.use(this.apiPaths.contactInfo, ContactInfoRoutes);
         this.app.use(this.apiPaths.tasks, TaskRoutes);
+        this.app.use(this.apiPaths.meetings, MeetingsRoutes);
     };
 
     middlewares = () => {
