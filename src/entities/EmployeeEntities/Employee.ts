@@ -3,11 +3,11 @@ import {
     PrimaryGeneratedColumn,
     Column,
     OneToOne,
-    JoinColumn,
     BaseEntity,
     ManyToMany,
     OneToMany,
     ManyToOne,
+    JoinTable,
 } from 'typeorm';
 import { Meeting } from '../MeetingEntities/Meeting';
 import { Task } from '../TasksEntites/Tasks';
@@ -21,9 +21,11 @@ export class Employee extends BaseEntity {
     @Column()
     name: string;
 
-    @ManyToOne(() => Employee, (employee) => employee.id, { onDelete: 'SET NULL' })
-    @JoinColumn()
+    @ManyToOne(() => Employee, (employee) => employee.direcReports, { onDelete: 'SET NULL' })
     manager: number;
+
+    @OneToMany(() => Employee, (employee) => employee.manager)
+    direcReports: Array<Employee>;
 
     @ManyToMany(
         () => Meeting,
@@ -31,12 +33,12 @@ export class Employee extends BaseEntity {
             meeting.atendees;
         },
     )
+    @JoinTable({ name: 'meetings_employees' })
     meetings: Array<Meeting>;
 
-    @OneToOne(() => ContactInfo, (contact) => contact.id, { onDelete: 'CASCADE' })
-    @JoinColumn()
+    @OneToOne(() => ContactInfo, (contactInfo) => contactInfo.employee, { onDelete: 'CASCADE' })
     contactInfo: ContactInfo;
 
-    @OneToMany(() => Task, (tasks) => tasks.id, { onDelete: 'SET NULL' })
+    @OneToMany(() => Task, (tasks) => tasks.employee, { onDelete: 'SET NULL' })
     tasks: Array<Task>;
 }

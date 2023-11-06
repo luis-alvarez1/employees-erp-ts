@@ -3,12 +3,15 @@ import { Employee } from '../entities/EmployeeEntities/Employee';
 import generators from '../generators';
 
 export const GetAllEmployees = async (req: Request, res: Response) => {
-    const employees = await Employee.find({
-        // relations: ['tasks', 'contactInfo', 'manager'],
-        relations: ['tasks'], // TODO: Add tasks and meetings
-    });
+    try {
+        const employees = await Employee.find({
+            relations: ['tasks', 'contactInfo', 'manager', 'meetings'],
+        });
 
-    res.json(employees);
+        res.json(employees);
+    } catch (error) {
+        res.status(500).json(error);
+    }
 };
 
 export const CreateEmployee = async (req: Request, res: Response) => {

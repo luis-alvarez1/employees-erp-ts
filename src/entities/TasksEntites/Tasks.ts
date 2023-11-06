@@ -9,6 +9,6 @@ export class Task extends BaseEntity {
     @Column()
     name: string;
 
-    @ManyToOne(() => Employee, (employee) => employee.id, { onDelete: 'SET NULL' })
+    @ManyToOne(() => Employee, (employee) => employee.tasks, { onDelete: 'SET NULL' })
     employee: number;
 }

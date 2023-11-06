@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Employee } from '../EmployeeEntities/Employee';
 
 @Entity()
@@ -6,12 +6,13 @@ export class ContactInfo extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ unique: true })
+    @Column({ unique: true, nullable: true })
     phone: string;
 
     @Column({ unique: true })
     email: string;
 
-    @OneToOne(() => Employee, (employee) => employee.id, { onDelete: 'CASCADE' })
+    @OneToOne(() => Employee, (employee) => employee.contactInfo, { onDelete: 'CASCADE' })
+    @JoinColumn()
     employee: number;
 }
